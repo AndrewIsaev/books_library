@@ -10,6 +10,7 @@ packages = [{include = "book_library"}]
 python = "^3.11"
 django = "^4.2.5"
 django-environ = "^0.11.2"
+psycopg2-binary = "^2.9.7"
 
 
 [tool.poetry.group.dev.dependencies]
