@@ -5,7 +5,7 @@ from django.db import models
 class Books(models.Model):
     title = models.CharField(max_length=255)
     author = models.ForeignKey("books.Authors", on_delete=models.CASCADE)
-    year = models.DateField()
+    year = models.PositiveSmallIntegerField()
     description = models.TextField(blank=True)
     cover = models.ImageField
 
