@@ -1,7 +1,7 @@
 # Create your views here.
-from django.views.generic import ListView, DetailView
+from django.views.generic import DetailView, ListView
 
-from books.models import Books, Authors
+from books.models import Books
 
 
 class BooksListView(ListView):
