@@ -17,7 +17,7 @@ Including another URLconf
 
 from django.urls import path
 
-from books.views import BooksListView, BooksDetailView
+from books.views import BooksDetailView, BooksListView
 
 app_name = "books"
 
@@ -25,4 +25,3 @@ urlpatterns = [
     path("", BooksListView.as_view(), name="books-list"),
     path("<int:pk>", BooksDetailView.as_view(), name="books-detail"),
 ]
-
