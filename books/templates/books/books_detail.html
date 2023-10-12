@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Детали книги: {{ book.title }}</title>
+</head>
+<body>
+<h1>Детали книги: {{ book.title }}</h1>
+{% if book.cover %}
+    <img src="{{ book.cover.url }}" alt="{{ book.title }} Cover" height="200">
+{% endif %}
+<p>Название: {{ book.title }}</p>
+<p>Автор: {{ book.author.name }}</p>
+<p>Год выпуска: {{ book.year }}</p>
+<p>Описание: {{ book.description }}</p>
+
+<a href="{% url 'books:books-list' %}">Вернуться к списку книг</a>
+</body>
+</html>

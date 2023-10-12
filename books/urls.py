@@ -14,17 +14,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls.static import static
-from django.contrib import admin
-from django.urls import path, include
 
-import core
-from book_library import settings
+from django.urls import path
+
+from books.views import BooksListView, BooksDetailView
+
+app_name = "books"
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("", include("core.urls", namespace="users")),
-    path("books/", include("books.urls", namespace="books")),
-    path('api-auth/', include('rest_framework.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path("", BooksListView.as_view(), name="books-list"),
+    path("<int:pk>", BooksDetailView.as_view(), name="books-detail"),
+]
 
