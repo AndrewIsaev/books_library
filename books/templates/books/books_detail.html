@@ -13,6 +13,26 @@
         <p><a href="{% url 'books:books-update' pk=book.pk %}">Редактировать</a></p>
         <p><a href="{% url 'books:books-delete' pk=book.pk %}">Удалить</a></p>
     {% endif %}
+    <h2>Комментарии</h2>
+    <ul>
+        {% for comment in comments %}
+            <li>{{ comment.text }} ({{ comment.user.username }})</li>
+        {% empty %}
+            <li>Пока нет комментариев.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Форма для добавления комментариев -->
+    {% if user.is_authenticated %}
+        <h3>Оставить комментарий</h3>
+        <form method="post" action="{% url 'books:books-comment-create' book.pk %}">
+            {% csrf_token %}
+            {{ comment_form.as_p }} {# Используем форму для отображения полей #}
+            <button type="submit">Отправить</button>
+        </form>
+    {% else %}
+        <p>Для добавления комментария войдите в свою учетную запись.</p>
+    {% endif %}
 
 
     <a href="{% url 'books:books-list' %}">Вернуться к списку книг</a>

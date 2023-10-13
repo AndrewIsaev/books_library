@@ -62,3 +62,17 @@ class Authors(models.Model):
     class Meta:
         verbose_name = "Автор"
         verbose_name_plural = "Авторы"
+
+
+class Comments(models.Model):
+    book = models.ForeignKey("books.Books", on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey("core.User", on_delete=models.CASCADE)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return str(self.user.username) + str(self.created_at)
+
+    class Meta:
+        verbose_name = "Комментарий"
+        verbose_name_plural = "Комментарии"

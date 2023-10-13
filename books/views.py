@@ -4,7 +4,8 @@ from django.db.models import Q
 from django.urls import reverse_lazy, reverse
 from django.views.generic import DetailView, ListView, CreateView, DeleteView, UpdateView
 
-from books.models import Books
+from books.forms import CommentsForm
+from books.models import Books, Comments
 
 
 class BooksListView(ListView):
@@ -81,6 +82,12 @@ class BooksDetailView(DetailView):
     model = Books
     context_object_name = "book"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comments'] = self.object.comments.select_related("user")
+        context['comment_form'] = CommentsForm()  # Добавляем форму в контекст
+        return context
+
 
 class BooksUpdateView(LoginRequiredMixin, UpdateView):
     model = Books
@@ -104,3 +111,16 @@ class BooksDeleteView(LoginRequiredMixin, DeleteView):
       """
     model = Books
     success_url = reverse_lazy("books:books-list")
+
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comments
+    form_class = CommentsForm
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.book_id = self.kwargs['book_id']
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('books:books-detail', args=[self.kwargs['book_id']])
