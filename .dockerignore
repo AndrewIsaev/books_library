@@ -4,3 +4,5 @@ local.yaml
 .gitignore
 README.md
 /tests
+.idea
+.vscode

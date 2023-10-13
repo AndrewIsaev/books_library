@@ -12,6 +12,8 @@
 <p>Автор: {{ book.author.name }}</p>
 <p>Год выпуска: {{ book.year }}</p>
 <p>Описание: {{ book.description }}</p>
+<p><a href="{% url 'books:books-update' pk=book.pk %}">Редактировать</a></p>
+<p><a href="{% url 'books:books-delete' pk=book.pk %}">Удалить</a></p>
 
 <a href="{% url 'books:books-list' %}">Вернуться к списку книг</a>
 </body>
