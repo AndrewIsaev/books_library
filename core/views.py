@@ -7,7 +7,7 @@ from core.models import User
 
 
 def home(request):
-    return render(request, '../templates/base.html')
+    return render(request, "../templates/base.html")
 
 
 # Create your views here.

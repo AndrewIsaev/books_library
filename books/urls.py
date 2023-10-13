@@ -17,8 +17,14 @@ Including another URLconf
 
 from django.urls import path
 
-from books.views import BooksDetailView, BooksListView, BooksCreateView, BooksDeleteView, BooksUpdateView, \
-    CommentCreateView
+from books.views import (
+    BooksCreateView,
+    BooksDeleteView,
+    BooksDetailView,
+    BooksListView,
+    BooksUpdateView,
+    CommentCreateView,
+)
 
 app_name = "books"
 
@@ -26,7 +32,11 @@ urlpatterns = [
     path("", BooksListView.as_view(), name="books-list"),
     path("create", BooksCreateView.as_view(), name="books-create"),
     path("<int:pk>", BooksDetailView.as_view(), name="books-detail"),
-    path('<int:pk>/delete', BooksDeleteView.as_view(), name='books-delete'),
-    path('<int:pk>/update', BooksUpdateView.as_view(), name='books-update'),
-    path('<int:book_id>/comment/', CommentCreateView.as_view(), name='books-comment-create'),
+    path("<int:pk>/delete", BooksDeleteView.as_view(), name="books-delete"),
+    path("<int:pk>/update", BooksUpdateView.as_view(), name="books-update"),
+    path(
+        "<int:book_id>/comment/",
+        CommentCreateView.as_view(),
+        name="books-comment-create",
+    ),
 ]

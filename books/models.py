@@ -8,7 +8,7 @@ class Books(models.Model):
 
     Attributes:
     title (CharField): The title of the book (maximum 255 characters).
-    author (ForeignKey): A foreign key linked to the "Authors" model, representing the book's author and using cascading deletion.
+    author (ForeignKey): A foreign key linked to the "Authors" model, representing the book's author.
     year (PositiveSmallIntegerField): The year of the book's release.
     description (TextField): Description of the book (optional, can be blank).
     cover (ImageField): The book's cover image (optional, can be blank).
@@ -65,7 +65,11 @@ class Authors(models.Model):
 
 
 class Comments(models.Model):
-    book = models.ForeignKey("books.Books", on_delete=models.CASCADE, related_name='comments')
+    book = models.ForeignKey(
+        "books.Books",
+        on_delete=models.CASCADE,
+        related_name="comments",
+    )
     user = models.ForeignKey("core.User", on_delete=models.CASCADE)
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

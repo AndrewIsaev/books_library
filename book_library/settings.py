@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # First-party apps
     "core",
     "books",
+    "api",
 ]
 
 MIDDLEWARE = [
