@@ -1,4 +1,6 @@
 # Create your views here.
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.urls import reverse_lazy, reverse
 from django.views.generic import DetailView, ListView, CreateView, DeleteView, UpdateView
 
@@ -29,12 +31,23 @@ class BooksListView(ListView):
 
     def get_queryset(self):
         """
-            Return the queryset of books, including related author information.
+        Return the queryset of books, including related author information and search results.
+
+        If a search query is provided in the URL parameters, filter the queryset based on the query.
         """
-        return Books.objects.select_related("author").all()
+        query = self.request.GET.get('q', '')
+        queryset = Books.objects.select_related("author")
+
+        if query:
+            # Filter the queryset based on the search query for book title or author name
+            queryset = queryset.filter(
+                Q(title__icontains=query) | Q(author__name__icontains=query)
+            )
+
+        return queryset
 
 
-class BooksCreateView(CreateView):
+class BooksCreateView(LoginRequiredMixin, CreateView):
     """
     View for creating a new book record.
 
@@ -69,7 +82,7 @@ class BooksDetailView(DetailView):
     context_object_name = "book"
 
 
-class BooksUpdateView(UpdateView):
+class BooksUpdateView(LoginRequiredMixin, UpdateView):
     model = Books
     template_name = 'books/books_update.html'  # Замените на ваш шаблон
     fields = ['title', 'author', 'year', 'description', 'cover']  # Укажите поля, которые можно редактировать
@@ -78,7 +91,7 @@ class BooksUpdateView(UpdateView):
         return reverse('books:books-detail', kwargs={'pk': self.object.pk})
 
 
-class BooksDeleteView(DeleteView):
+class BooksDeleteView(LoginRequiredMixin, DeleteView):
     """
       View for deleting a book record.
 

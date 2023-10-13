@@ -26,22 +26,29 @@
     </style>
 </head>
 <body>
-    <div id="header">
-        <ul id="menu">
-            {%  if not user.is_authenticated %}
+<div id="header">
+    <ul id="menu">
+        {% if not user.is_authenticated %}
             <li><a href="{% url 'users:register' %}">Регистрация</a></li>
             <li><a href="{% url 'users:login' %}">Вход</a></li>
-            {% endif %}
-            <li><a href="{% url 'books:books-list' %}">Список книг</a></li>
+        {% endif %}
+        <li><a href="{% url 'books:books-list' %}">Список книг</a></li>
+        {% if user.is_authenticated %}
             <li><a href="{% url 'books:books-create' %}">Добавить книгу</a></li>
-            {% if user.is_authenticated %}
-                <li>Привет, {{ user.username }}</li>
-                <li><a href="{% url 'users:logout' %}">Выход</a></li>
-            {% endif %}
-        </ul>
-    </div>
-    <div id="content">
-        {% block content %}{% endblock %}
-    </div>
+            <li>Привет, {{ user.username }}</li>
+            <li><a href="{% url 'users:logout' %}">Выход</a></li>
+        {% endif %}
+        <li>
+            <form id="search-form" method="get" action="{% url 'books:books-list' %}">
+                <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Поиск">
+                <button type="submit">Искать</button>
+            </form>
+        </li>
+    </ul>
+</div>
+
+<div id="content">
+    {% block content %}{% endblock %}
+</div>
 </body>
 </html>
