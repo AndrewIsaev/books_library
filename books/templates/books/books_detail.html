@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Детали книги: {{ book.title }}</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
 <h1>Детали книги: {{ book.title }}</h1>
 {% if book.cover %}
     <img src="{{ book.cover.url }}" alt="{{ book.title }} Cover" height="200">
@@ -16,5 +13,4 @@
 <p><a href="{% url 'books:books-delete' pk=book.pk %}">Удалить</a></p>
 
 <a href="{% url 'books:books-list' %}">Вернуться к списку книг</a>
-</body>
-</html>
+{% endblock %}

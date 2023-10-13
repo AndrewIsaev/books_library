@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ваше приложение</title>
+    <style>
+        /* Стили для меню в одну строку */
+        #header {
+            display: flex;
+            align-items: center;
+        }
+
+        #menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        #menu li {
+            margin-right: 20px; /* Расстояние между пунктами меню */
+        }
+
+        #menu a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <ul id="menu">
+            {%  if not user.is_authenticated %}
+            <li><a href="{% url 'users:register' %}">Регистрация</a></li>
+            <li><a href="{% url 'users:login' %}">Вход</a></li>
+            {% endif %}
+            <li><a href="{% url 'books:books-list' %}">Список книг</a></li>
+            <li><a href="{% url 'books:books-create' %}">Добавить книгу</a></li>
+            {% if user.is_authenticated %}
+                <li>Привет, {{ user.username }}</li>
+                <li><a href="{% url 'users:logout' %}">Выход</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
