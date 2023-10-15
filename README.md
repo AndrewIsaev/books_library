@@ -31,14 +31,14 @@ Simple books library
    POSTGRES_USER=
    POSTGRES_DB=
    PGUSER=
-    
+
    DB_USER=
    DB_PASSWORD=
    DB_HOST=db
    DB_PORT=5432
    DB_NAME=books_library
-    
-    
+
+
    SECRET_KEY=""
    DEBUG=
 2. Run docker container
