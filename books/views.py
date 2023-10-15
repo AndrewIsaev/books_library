@@ -11,7 +11,7 @@ from django.views.generic import (
 )
 
 from books.forms import CommentsForm
-from books.models import Books, Comments
+from books.models import Books, Comments, Authors
 
 
 class BooksListView(ListView):
@@ -140,3 +140,9 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse("books:books-detail", args=[self.kwargs["book_id"]])
+
+
+class AuthorCreateView(CreateView):
+    model = Authors
+    fields = "__all__"
+    success_url = reverse_lazy("books:books-list")

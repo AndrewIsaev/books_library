@@ -35,6 +35,7 @@
         <li><a href="{% url 'books:books-list' %}">Список книг</a></li>
         {% if user.is_authenticated %}
             <li><a href="{% url 'books:books-create' %}">Добавить книгу</a></li>
+            <li><a href="{% url 'books:author-create' %}">Добавить автора</a></li>
             <li>Привет, {{ user.username }}</li>
             <li><a href="{% url 'users:logout' %}">Выход</a></li>
         {% endif %}

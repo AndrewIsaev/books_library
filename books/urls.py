@@ -24,6 +24,7 @@ from books.views import (
     BooksListView,
     BooksUpdateView,
     CommentCreateView,
+    AuthorCreateView
 )
 
 app_name = "books"
@@ -34,6 +35,7 @@ urlpatterns = [
     path("<int:pk>", BooksDetailView.as_view(), name="books-detail"),
     path("<int:pk>/delete", BooksDeleteView.as_view(), name="books-delete"),
     path("<int:pk>/update", BooksUpdateView.as_view(), name="books-update"),
+    path("authors/create", AuthorCreateView.as_view(), name="author-create"),
     path(
         "<int:book_id>/comment/",
         CommentCreateView.as_view(),
