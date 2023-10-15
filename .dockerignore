@@ -1,5 +1,5 @@
 /data
-local.yaml
+docker-compose.yaml
 .pre-commit-config.yaml
 .gitignore
 README.md
