@@ -130,6 +130,22 @@ class BooksDeleteView(LoginRequiredMixin, DeleteView):
 
 
 class CommentCreateView(LoginRequiredMixin, CreateView):
+    """
+    A view for creating comments on a book.
+
+    This view allows authenticated users to create comments on a specific book.
+    It uses the 'CommentsForm' form for collecting comment text and associates
+    the comment with the currently logged-in user and the targeted book.
+
+    Attributes:
+        model (Comments): The model to create comments.
+        form_class (CommentsForm): The form for entering comment data.
+
+    Methods:
+        form_valid(form): Sets the user and book for the comment and saves it.
+        get_success_url(): Returns the URL to redirect to after successful comment creation.
+    """
+
     model = Comments
     form_class = CommentsForm
 
@@ -143,6 +159,22 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
 
 
 class AuthorCreateView(CreateView):
+    """
+    A view for creating authors.
+
+    This view allows users to create author records with various attributes.
+    It provides a form to collect author details, and upon successful creation,
+    it redirects to the list of books.
+
+    Attributes:
+        model (Authors): The model to create authors.
+        fields (str): The fields to include in the author creation form.
+        success_url (str): The URL to redirect to after successful author creation.
+
+    Methods:
+        None.
+    """
+
     model = Authors
     fields = "__all__"
     success_url = reverse_lazy("books:books-list")

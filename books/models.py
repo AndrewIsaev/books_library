@@ -65,6 +65,28 @@ class Authors(models.Model):
 
 
 class Comments(models.Model):
+    """
+    A Django model representing comments associated with books.
+
+    This model stores comments made by users on specific books. It includes
+    fields for the book the comment is related to, the user who made the comment,
+    the comment text, and the timestamp of when the comment was created.
+
+    Attributes:
+        book (ForeignKey): The book to which the comment is related.
+        user (ForeignKey): The user who made the comment.
+        text (TextField): The text content of the comment.
+        created_at (DateTimeField): The timestamp of when the comment was created.
+
+    Methods:
+        __str__(): Returns a string representation of the comment, which combines
+        the username of the user who made the comment and the creation timestamp.
+
+    Meta:
+        verbose_name (str): A human-readable name for a single comment.
+        verbose_name_plural (str): A human-readable name for the collection of comments.
+    """
+
     book = models.ForeignKey(
         "books.Books",
         on_delete=models.CASCADE,

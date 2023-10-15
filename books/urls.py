@@ -24,7 +24,7 @@ from books.views import (
     BooksListView,
     BooksUpdateView,
     CommentCreateView,
-    AuthorCreateView
+    AuthorCreateView,
 )
 
 app_name = "books"
